@@ -10,14 +10,17 @@ var Logic=function(xo,xc){
  var xn={
   type:false,
   socket:false,
-  use:false
- };xn=mut.n({o:xo,n:xn});
+  database:false
+ };Object.keys(xn).forEach(function(key){if(key in xo){xn[key=xo[key];}});
  var xm='Logic';
  var logic={};
  var xerr=function(err){var res=err||xm+'-invalid';if(res.constructor!==String().constructor){res=res.toString();}console.log(res);if(xc){xc(res);}else{return false;}}; 
- if(xn.use!==false){
-  ddb.use({use:xn.use},function(e,m,xdb){
-   if(!e&&xdb){
+ if(xn.database!==false){
+   MongoClient.connect('mongodb://localhost:27017/'+n.database,function(err,res){
+    if(err){console.log(err);}
+    else
+    if(!err&&res){
+     db.collection(n.database,function(err,xdb){
     Object.keys(gen.logic2).forEach(function(key){
      logic[key]=function(o,c){
       o.db=xdb;o.type=xn.type;
@@ -26,7 +29,6 @@ var Logic=function(xo,xc){
      if(xn.socket!==false){
       xn.socket.on(xn.type+'.'+key,function(o,c){
        logic[key](o,function(e,m,r){
-        if(xn.broadcast!==false){ xn.socket.broadcast.emit(xn.type+'.'+key,r); }
         c(e,m,r);
        });
       });
