@@ -16,26 +16,26 @@ var Logic=function(xo,xc){
  var logic={};
  var xerr=function(err){var res=err||xm+'-invalid';if(res.constructor!==String().constructor){res=res.toString();}console.log(res);if(xc){xc(res);}else{return false;}}; 
  if(xn.database!==false){
-   MongoClient.connect('mongodb://localhost:27017/'+n.database,function(err,res){
-    if(err){console.log(err);}
-    else
-    if(!err&&res){
-     db.collection(n.database,function(err,xdb){
-    Object.keys(gen.logic2).forEach(function(key){
-     logic[key]=function(o,c){
-      o.db=xdb;o.type=xn.type;
-      gen.logic2[key](o,function(e,m,r){c(e,m,r);});
-     };
-     if(xn.socket!==false){
-      xn.socket.on(xn.type+'.'+key,function(o,c){
-       logic[key](o,function(e,m,r){
-        c(e,m,r);
+  MongoClient.connect('mongodb://localhost:27017/'+n.database,function(err,res){
+   if(err){console.log(err);}
+   else
+   if(!err&&res){
+    res.collection(n.database,function(err,db){
+     Object.keys(Logic).forEach(function(key){
+      logic[key]=function(o,c){
+       o.db=xdb;o.type=xn.type;
+       Logic[key](o,function(e,m,r){c(e,m,r);});
+      };
+      if(xn.socket!==false){
+       xn.socket.on(xn.type+'.'+key,function(o,c){
+        logic[key](o,function(e,m,r){
+         c(e,m,r);
+        });
        });
-      });
-     }
-    });
-    xc(logic);
-   }else{xc(logic);}
-  }); 
+      }
+     });                                                       
+    });//end get db
+   }
+  });//end mongoclient
  }else{xc(logic);}
 };
