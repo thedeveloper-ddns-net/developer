@@ -1,5 +1,6 @@
 # developer
 General Code
+
 The logic generator was created to facilitate adding logic to an object in the mongodb.
 
 To add a new logic simply pass in the type, mongo database name, and an optional instance of a websocket to use for that type.
