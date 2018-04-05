@@ -8,8 +8,12 @@ To add a new logic simply pass in the type, mongo database name, and an optional
 var add_logic_example={};
 
 Logic({type:'customer',database:'company_database',socket:socket},function(e,m,logic){
-
- add_logic_example.logic=logic;
+ 
+ if(logic){
+ 
+  add_logic_example.logic=logic;
+ 
+ }
  
 });
 
