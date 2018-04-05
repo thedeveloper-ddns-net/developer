@@ -1,0 +1,6 @@
+/*
+Logic.js
+
+A simple bootstrap to allow for logic operations server side to be associated to a particular obj.
+
+*/
